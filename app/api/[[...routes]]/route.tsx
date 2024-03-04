@@ -1,18 +1,19 @@
 /** @jsxImportSource frog/jsx */
 import { Button, Frog, TextInput } from "frog";
 import { handle } from "frog/next";
+import { neynar } from "frog/hubs";
 
 const app = new Frog({
   basePath: "/api",
-  // Supply a Hub API URL to enable frame verification.
-  hubApiUrl: "https://api.hub.wevm.dev",
+  //comment out below for local
+  // hub: neynar({ apiKey: process.env.NEYNAR_API_KEY as string }),
 });
-
-// Uncomment to use Edge Runtime
-// export const runtime = 'edge'
 
 app.frame("/", (c) => {
   const { buttonValue, status, inputText } = c;
+  console.log(c);
+  //Check process of TX
+  const isFinished = false;
   //TODO: check if the video is ready, if so link, otherwise refresh
   return c.res({
     image: (
@@ -33,6 +34,11 @@ app.frame("/", (c) => {
     ),
     intents: [
       <Button value="generate">Generate!</Button>,
+      isFinished ? (
+        <Button.Link href="https://shorts.wtf">Check out shorts!</Button.Link>
+      ) : (
+        <Button value="refresh">Refresh</Button>
+      ),
       <TextInput placeholder="Enter your prompt here" />,
       <Button.Link href="https://shorts.wtf">Check out shorts!</Button.Link>,
     ],
