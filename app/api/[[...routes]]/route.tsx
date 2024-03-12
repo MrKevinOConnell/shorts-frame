@@ -2,6 +2,7 @@
 import { Button, Frog, TextInput } from "frog";
 import { handle } from "frog/next";
 import { neynar } from "frog/hubs";
+import axios from "axios";
 
 const app = new Frog({
   basePath: "/api",
@@ -9,11 +10,23 @@ const app = new Frog({
   // hub: neynar({ apiKey: process.env.NEYNAR_API_KEY as string }),
 });
 
-app.frame("/", (c) => {
+app.frame("/", async (c) => {
   const { buttonValue, status, inputText } = c;
   console.log(c);
   //Check process of TX
   const isFinished = false;
+  const res = await axios.post(
+    "https://79828676f8aea1eb.agent.propel.autonolas.tech/generate_farcaster",
+    {
+      ...c,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_BEARER_TOKEN}`,
+      },
+    }
+  );
+
   //TODO: check if the video is ready, if so link, otherwise refresh
   return c.res({
     image: (
