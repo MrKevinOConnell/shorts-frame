@@ -48,21 +48,21 @@ app.frame("/frame", async (c) => {
         ? addresses.eth_addresses[0]
         : users.data.users[0].custody_address;
 
-    // const res = await axios.post(
-    //   "https://79828676f8aea1eb.agent.propel.autonolas.tech/generate_farcaster",
-    //   {
-    //     ...c,
-    //     address,
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_BEARER_TOKEN}`,
-    //     },
-    //   }
-    // );
+    const res = await axios.post(
+      "https://79828676f8aea1eb.agent.propel.autonolas.tech/generate_farcaster",
+      {
+        ...c,
+        address,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_BEARER_TOKEN}`,
+        },
+      }
+    );
+    //TODO: check if the video is ready, if so link, otherwise refresh
   }
 
-  //TODO: check if the video is ready, if so link, otherwise refresh
   return c.res({
     image: (
       <div
