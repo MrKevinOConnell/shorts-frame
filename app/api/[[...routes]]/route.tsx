@@ -24,7 +24,7 @@ app.frame("/frame", async (c) => {
 
   const isFinished = false;
   //Check process of TX
-  let text = inputText;
+  let text = state.prompt;
   if (!fid && state.prompt) {
     text = "There was an error generating your video, please try again!";
   } else if (fid && state.prompt) {
